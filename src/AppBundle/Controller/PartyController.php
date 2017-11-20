@@ -31,6 +31,8 @@ class PartyController extends Controller
         
         if ($form->isSubmitted() && $form->isValid()) {
             $geocodeResult = $this->getGeoCoderHelper()->geocodeAddress($searchParty);
+            print_r($geocodeResult);
+            die();
             
             return $this->redirectToRoute('party_index', [
                 'latitude'  => $geocodeResult->getLatitude(),

@@ -1,6 +1,14 @@
 {% extends 'base.html.twig' %}
+{% form_theme searchForm 'bootstrap_3_layout.html.twig' %}
 
 {% block body %}
+    <h1>Search for party</h1>
+
+    {{ form_start(searchForm) }}
+        {{ form_widget(searchForm) }}
+        <input class="input_button" type="submit" value="Search for party" />
+    {{ form_end(searchForm) }}
+
     <h1>Parties list</h1>
 
     <table class="table">

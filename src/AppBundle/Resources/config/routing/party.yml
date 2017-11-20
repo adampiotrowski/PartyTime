@@ -1,7 +1,10 @@
 party_index:
-    path:     /
-    defaults: { _controller: "AppBundle:Party:index" }
-    methods:  GET
+    path:     /{latitude},{longitude}
+    defaults:
+        _controller: "AppBundle:Party:index"
+        latitude: null
+        longitude: null
+    methods:  [GET, POST]
 
 party_show:
     path:     /{id}/show

@@ -6,6 +6,9 @@ use AppBundle\Entity\Comment;
 use AppBundle\Entity\Party;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\PartyType;
+use AppBundle\Form\SearchPartyType;
+use AppBundle\Model\SearchParty;
+use AppBundle\Service\Geocoder\GeocoderHelperInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +21,30 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PartyController extends Controller
 {
-    public function indexAction(): Response
+    public function indexAction(Request $request): Response
+    {
+        $searchParty = new SearchParty();
+        $em          = $this->getDoctrine()->getManager();
+        $parties     = $em->getRepository(Party::class)->findAll();
+        $form        = $this->createForm(SearchPartyType::class, $searchParty);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $geocodeResult = $this->getGeoCoderHelper()->geocodeAddress($searchParty);
+            
+            return $this->redirectToRoute('party_index', [
+                'latitude'  => $geocodeResult->getLatitude(),
+                'longitude' => $geocodeResult->getLongitude(),
+            ]);
+        }
+        
+        return $this->render('party/index.html.twig', [
+            'parties'    => $parties,
+            'searchForm' => $form->createView(),
+        ]);
+    }
+    
+    public function searchAction(float $latitude = null, float $longitude = null): Response
     {
         $em      = $this->getDoctrine()->getManager();
         $parties = $em->getRepository(Party::class)->findAll();
@@ -101,6 +127,11 @@ class PartyController extends Controller
                 'message'   => $e->getMessage(),
             ]);
         }
+    }
+    
+    private function getGeoCoderHelper(): GeocoderHelperInterface
+    {
+        return $this->getGeoCoderHelper();
     }
     
     private function getMailer(): \Swift_Mailer

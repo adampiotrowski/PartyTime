@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Service\Geocoder\GeoAwareInterface;
+use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -47,7 +48,9 @@ class Party implements GeoAwareInterface
     
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
+        $this->comments      = new ArrayCollection();
+        $this->availableFrom = Carbon::now()->addDay(7);
+        $this->availableTo   = Carbon::now()->addDay(8);
     }
     
     public function getId(): int

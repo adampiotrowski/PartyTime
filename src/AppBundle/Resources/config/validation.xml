@@ -47,6 +47,7 @@
             <constraint name="NotBlank" />
             <constraint name="Type">\DateTime</constraint>
         </property>
+        <constraint name="AppBundle\Validator\AvailabilityDates" />
     </class>
     <class name="AppBundle\Entity\Comment">
         <property name="comment">

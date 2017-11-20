@@ -2,6 +2,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\Party;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PartyControllerTest extends WebTestCase
@@ -47,11 +48,19 @@ class PartyControllerTest extends WebTestCase
     
     public function testShow()
     {
-        $client = static::createClient();
+        $client  = static::createClient();
+        $parties = $this->container->get('doctrine')->getRepository(Party::class)->findAll();
         
-        $crawler = $client->request('GET', '/search/show');
-        
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        /** @var Party $party */
+        foreach ($parties as $party) {
+            $url = $this->generateUrl('party_show', [
+                'id' => $party->getId(),
+            ]);
+            
+            $crawler = $client->request('GET', $url);
+            
+            $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        }
     }
     
     /**

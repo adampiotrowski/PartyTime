@@ -1,9 +1,7 @@
 party_index:
-    path:     /{latitude},{longitude}
+    path:     /
     defaults:
         _controller: "AppBundle:Party:index"
-        latitude: null
-        longitude: null
     methods:  [GET, POST]
 
 party_show:
@@ -19,4 +17,12 @@ party_new:
 party_delete_comment:
     path:     /comment/delete/{id}
     defaults: { _controller: "AppBundle:Party:deleteComment" }
+    methods:  [GET]
+
+party_search:
+    path:     /search/{latitude},{longitude}
+    defaults:
+        _controller: "AppBundle:Party:search"
+        latitude: null
+        longitude: null
     methods:  [GET]

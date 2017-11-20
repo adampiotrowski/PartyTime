@@ -31,10 +31,8 @@ class PartyController extends Controller
         
         if ($form->isSubmitted() && $form->isValid()) {
             $geocodeResult = $this->getGeoCoderHelper()->geocodeAddress($searchParty);
-            print_r($geocodeResult);
-            die();
             
-            return $this->redirectToRoute('party_index', [
+            return $this->redirectToRoute('party_search', [
                 'latitude'  => $geocodeResult->getLatitude(),
                 'longitude' => $geocodeResult->getLongitude(),
             ]);
@@ -51,7 +49,7 @@ class PartyController extends Controller
         $em      = $this->getDoctrine()->getManager();
         $parties = $em->getRepository(Party::class)->findAll();
         
-        return $this->render('party/index.html.twig', [
+        return $this->render('party/search.html.twig', [
             'parties' => $parties,
         ]);
     }

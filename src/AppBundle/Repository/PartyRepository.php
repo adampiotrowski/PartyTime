@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -24,17 +25,15 @@ class PartyRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('p')
             ->select('p')
-            ->addSelect(
+            ->andHaving(
                 '( 6371 * ACOS(COS(RADIANS(' . $latitude . '))' .
                 '* COS( RADIANS( p.latitude ) )' .
                 '* COS( RADIANS( p.longitude )' .
                 '- RADIANS(' . $longitude . ') )' .
                 '+ sin( RADIANS(' . $latitude . ') )' .
-                '* sin( RADIANS( p.latitude ) ) ) ) as distance'
+                '* sin( RADIANS( p.latitude ) ) ) ) < :distance'
             )
-            ->having('distance < :distance')
-            ->setParameter('distance', $distance)
-            ->orderBy('distance', 'ASC');
+            ->setParameter('distance', $distance);
         
         return $queryBuilder->getQuery()->getResult();
     }

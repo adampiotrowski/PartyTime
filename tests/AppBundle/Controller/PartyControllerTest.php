@@ -6,6 +6,22 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PartyControllerTest extends WebTestCase
 {
+    /**
+     * @var \Symfony\Bundle\FrameworkBundle\Client
+     */
+    protected $client = null;
+    
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
+    
+    public function setUp()
+    {
+        $this->client    = static::createClient();
+        $this->container = $this->client->getContainer();
+    }
+    
     public function testIndex()
     {
         $client = static::createClient();
@@ -19,8 +35,36 @@ class PartyControllerTest extends WebTestCase
     {
         $client = static::createClient();
         
-        $crawler = $client->request('GET', '/search/51.80,19.37');
+        $url = $this->generateUrl('party_search', [
+            'latitude'  => 51.90,
+            'longitude' => 19.37,
+        ]);
+        
+        $crawler = $client->request('GET', $url);
         
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+    
+    public function testShow()
+    {
+        $client = static::createClient();
+        
+        $crawler = $client->request('GET', '/search/show');
+        
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+    
+    /**
+     * Returns an URL generated for route
+     *
+     * @param string     $routeName
+     * @param array      $params
+     * @param bool|false $absolute
+     *
+     * @return string
+     */
+    protected function generateUrl($routeName, array $params = [], $absolute = false)
+    {
+        return $this->container->get('router')->generate($routeName, $params, $absolute);
     }
 }

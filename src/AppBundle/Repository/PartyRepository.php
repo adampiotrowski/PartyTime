@@ -23,6 +23,7 @@ class PartyRepository extends EntityRepository
     public function getNearestParties(float $latitude = null, float $longitude = null, int $distance = 2)
     {
         $queryBuilder = $this->createQueryBuilder('p')
+            ->select('p')
             ->addSelect(
                 '( 6371 * ACOS(COS(RADIANS(' . $latitude . '))' .
                 '* COS( RADIANS( p.latitude ) )' .

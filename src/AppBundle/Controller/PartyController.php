@@ -131,7 +131,7 @@ class PartyController extends Controller
     
     private function getGeoCoderHelper(): GeocoderHelperInterface
     {
-        return $this->getGeoCoderHelper();
+        return $this->get('google.geocoder.helper');
     }
     
     private function getMailer(): \Swift_Mailer

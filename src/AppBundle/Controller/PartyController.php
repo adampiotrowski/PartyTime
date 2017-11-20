@@ -8,7 +8,6 @@ use AppBundle\Form\CommentType;
 use AppBundle\Form\PartyType;
 use AppBundle\Form\SearchPartyType;
 use AppBundle\Model\SearchParty;
-use AppBundle\Service\Geocoder\GeocoderHelperInterface;
 use AppBundle\Service\Geocoder\GeocodingResult;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -48,7 +47,7 @@ class PartyController extends Controller
     public function searchAction(float $latitude = null, float $longitude = null): Response
     {
         $em      = $this->getDoctrine()->getManager();
-        $parties = $em->getRepository(Party::class)->findAll();
+        $parties = $em->getRepository(Party::class)->getNearestParties($latitude, $longitude);
         
         return $this->render('party/search.html.twig', [
             'parties' => $parties,

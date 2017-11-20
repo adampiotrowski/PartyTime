@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Parties list</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Party starts</th>
+            <th>Party ends</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for party in parties %}
+            <tr>
+                <td><a href="{{ path('party_show', { 'id': party.id }) }}">{{ party.id }}</a></td>
+                <td>{{ party.name }}</td>
+                <td>{{ party.description }}</td>
+                <td>{{ party.address }}</td>
+                <td>{{ party.email }}</td>
+                <td>{% if party.availableFrom %}{{ party.availableFrom|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if party.availableTo %}{{ party.availableTo|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('party_show', { 'id': party.id }) }}">show</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('party_new') }}">Create a new party</a>
+
+{% endblock %}

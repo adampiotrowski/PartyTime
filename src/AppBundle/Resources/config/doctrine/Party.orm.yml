@@ -1,0 +1,47 @@
+AppBundle\Entity\Party:
+    type: entity
+    repositoryClass: AppBundle\Repository\PartyRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 50
+        description:
+            type: string
+            length: 300
+        address:
+            type: string
+            length: 50
+        country:
+            type: string
+            length: 2
+        email:
+            type: string
+            length: 255
+        availableFrom:
+            type: date
+        availableTo:
+            type: date
+        latitude:
+            type: decimal
+            scale: 2
+            precision: 15
+            nullable: true
+            column: latitude
+        longitude:
+            type: decimal
+            scale: 2
+            precision: 15
+            nullable: true
+            column: longitude
+    oneToMany:
+        comments:
+            targetEntity: AppBundle\Entity\Comment
+            fetch: EXTRA_LAZY
+            mappedBy: party
+            orderBy: { 'createdAt': 'DESC' }

@@ -1,0 +1,24 @@
+party_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Party:index" }
+    methods:  GET
+
+party_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Party:show" }
+    methods:  [GET, POST]
+
+party_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Party:new" }
+    methods:  [GET, POST]
+
+party_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Party:edit" }
+    methods:  [GET, POST]
+
+comment_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Party:delete" }
+    methods:  DELETE

@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+{% form_theme comment_form 'bootstrap_3_layout.html.twig' %}
+
+{% block body %}
+    <h1>Party</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ party.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ party.description }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ party.geocodableAddress }}</td>
+            </tr>
+            <tr>
+                <th>Latitude</th>
+                <td>{{ party.latitude }}</td>
+            </tr>
+            <tr>
+                <th>Longitude</th>
+                <td>{{ party.longitude }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ party.email }}</td>
+            </tr>
+            <tr>
+                <th>Party starts</th>
+                <td>{% if party.availableFrom %}{{ party.availableFrom|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Party ends</th>
+                <td>{% if party.availableTo %}{{ party.availableTo|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('party_index') }}">Back to the list</a>
+
+    <h1>Comments</h1>
+
+    <div class="row">
+    {% for comment in party.comments %}
+        <div class="col-sm-8">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <b>{{ comment.email }}</b> commented {{ comment.createdAt|time_ago_in_words }}
+                        </div>
+                        <h6 class="text-muted time">{{ comment.createdAt|date('Y-m-d H:i:s') }}</h6>
+                    </div>
+                </div>
+                <div class="post-description">
+                    <p>{{ comment.comment }} </p>
+                </div>
+                <div class="post-footer">
+                    <a class="btn btn-primary" href="{{ path('party_delete_comment', {"id": comment.id}) }}">Delete</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-sm-8">
+            <div class="alert alert-warning">
+                <strong>Help others decide. Be the first to submit a comment!</strong>.
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    <h1>Leave a comment</h1>
+    {{ form_start(comment_form) }}
+        {{ form_widget(comment_form) }}
+        <input type="submit" value="Add comment" class="btn btn-primary" />
+    {{ form_end(comment_form) }}
+{% endblock %}

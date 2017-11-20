@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="AppBundle\Entity\Party">
+        <property name="name">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="max">50</option>
+            </constraint>
+        </property>
+        <property name="description">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="max">300</option>
+            </constraint>
+        </property>
+        <property name="address">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="max">50</option>
+            </constraint>
+        </property>
+        <property name="email">
+            <constraint name="Regex">
+                <option name="pattern">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum|pro)$/i</option>
+            </constraint>
+            <constraint name="Email">
+                <option name="strict">false</option>
+            </constraint>
+        </property>
+        <property name="country">
+            <constraint name="NotBlank" />
+            <constraint name="Country" />
+            <constraint name="EqualTo">
+                <option name="value">PL</option>
+                <option name="message">Parties can only be held in Poland. Please change your selection.</option>
+            </constraint>
+        </property>
+        <property name="availableFrom">
+            <constraint name="NotBlank" />
+            <constraint name="Type">\DateTime</constraint>
+        </property>
+        <property name="availableTo">
+            <constraint name="NotBlank" />
+            <constraint name="Type">\DateTime</constraint>
+        </property>
+    </class>
+    <class name="AppBundle\Entity\Comment">
+        <property name="comment">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">10</option>
+                <option name="max">300</option>
+            </constraint>
+        </property>
+        <property name="email">
+            <constraint name="Regex">
+                <option name="pattern">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum|pro)$/i</option>
+            </constraint>
+            <constraint name="Email">
+                <option name="strict">false</option>
+            </constraint>
+        </property>
+        <property name="party">
+            <constraint name="Type">
+                <option name="type">AppBundle\Entity\Party</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

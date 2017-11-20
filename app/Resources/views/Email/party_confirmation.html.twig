@@ -1,0 +1,4 @@
+<p>Location: {{ party.geocodableAddress }}</p>
+<p>Starts: {{ party.availableFrom|date('Y-m-d') }}</p>
+<p>Ends: {{ party.availableTo|date('Y-m-d') }}</p>
+<p><a href="{{ url('party_show', {"id": party.id}) }}">Show party details</a></p>

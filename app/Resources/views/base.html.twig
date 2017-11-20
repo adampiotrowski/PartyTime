@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Party Time{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset( 'bundles/app/css/bootstrap.css') }}"/>
+    <link rel="stylesheet" href="{{ asset( 'bundles/app/css/bootstrap-theme.css') }}"/>
+    <link rel="stylesheet" href="{{ asset( 'bundles/app/css/party.css') }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

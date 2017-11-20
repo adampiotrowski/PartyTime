@@ -9,6 +9,7 @@ use AppBundle\Form\PartyType;
 use AppBundle\Form\SearchPartyType;
 use AppBundle\Model\SearchParty;
 use AppBundle\Service\Geocoder\GeocoderHelperInterface;
+use AppBundle\Service\Geocoder\GeocodingResult;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class PartyController extends Controller
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $geocodeResult = $this->getGeoCoderHelper()->geocodeAddress($searchParty);
+            $geocodeResult = $this->geocodeSearchQuery($searchParty);
             
             return $this->redirectToRoute('party_search', [
                 'latitude'  => $geocodeResult->getLatitude(),
@@ -129,9 +130,9 @@ class PartyController extends Controller
         }
     }
     
-    private function getGeoCoderHelper(): GeocoderHelperInterface
+    private function geocodeSearchQuery(SearchParty $searchParty): GeocodingResult
     {
-        return $this->get('google.geocoder.helper');
+        return $this->get('google.geocoder.helper')->geocodeAddress($searchParty);
     }
     
     private function getMailer(): \Swift_Mailer

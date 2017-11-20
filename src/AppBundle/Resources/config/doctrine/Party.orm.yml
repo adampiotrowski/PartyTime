@@ -29,13 +29,13 @@ AppBundle\Entity\Party:
             type: date
         latitude:
             type: decimal
-            scale: 2
+            scale: 6
             precision: 15
             nullable: true
             column: latitude
         longitude:
             type: decimal
-            scale: 2
+            scale: 6
             precision: 15
             nullable: true
             column: longitude

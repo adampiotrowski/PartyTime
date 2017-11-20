@@ -46,7 +46,7 @@ final class PartyDoctrineSubscriber implements EventSubscriber
         if ($party instanceof Party) {
             $result = $this->geocoderHelper->geocodeAddress($party);
             $party->setLatitude($result->getLatitude());
-            $party->setLatitude($result->getLatitude());
+            $party->setLongitude($result->getLongitude());
         }
     }
 }

@@ -42,7 +42,7 @@ final class GoogleGeocoderHelper implements GeocoderHelperInterface
         $result    = new GeocodingResult();
         
         try {
-            $geocodeResult = $geocoder->geocode($address);
+            $geocodeResult = $geocoder->geocode($address->getGeocodableAddress());
             if ($geocodeResult instanceof AddressCollection) {
                 $result->setLongitude($geocodeResult->first()->getLongitude());
                 $result->setLatitude($geocodeResult->first()->getLatitude());

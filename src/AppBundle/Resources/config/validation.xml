@@ -6,12 +6,14 @@
 
     <class name="AppBundle\Model\SearchParty">
         <property name="address">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="max">50</option>
             </constraint>
         </property>
         <property name="country">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Country" />
             <constraint name="EqualTo">
@@ -22,24 +24,28 @@
     </class>
     <class name="AppBundle\Entity\Party">
         <property name="name">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="max">50</option>
             </constraint>
         </property>
         <property name="description">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="max">300</option>
             </constraint>
         </property>
         <property name="address">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="max">50</option>
             </constraint>
         </property>
         <property name="email">
+            <constraint name="NotBlank" />
             <constraint name="Regex">
                 <option name="pattern">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum|pro)$/i</option>
             </constraint>
@@ -48,6 +54,7 @@
             </constraint>
         </property>
         <property name="country">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Country" />
             <constraint name="EqualTo">
@@ -56,10 +63,12 @@
             </constraint>
         </property>
         <property name="availableFrom">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Type">\DateTime</constraint>
         </property>
         <property name="availableTo">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Type">\DateTime</constraint>
         </property>
@@ -67,6 +76,7 @@
     </class>
     <class name="AppBundle\Entity\Comment">
         <property name="comment">
+            <constraint name="NotNull" />
             <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="min">10</option>
@@ -74,6 +84,7 @@
             </constraint>
         </property>
         <property name="email">
+            <constraint name="NotBlank" />
             <constraint name="Regex">
                 <option name="pattern">/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum|pro)$/i</option>
             </constraint>
